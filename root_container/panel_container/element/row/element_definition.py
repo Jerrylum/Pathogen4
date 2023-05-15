@@ -51,3 +51,26 @@ class ElementDefinition(ABC):
 
     def getName(self) -> str:
         return self.variableName
+    
+    def importFromJson(json: dict) -> ElementDefinition:
+        from root_container.panel_container.element.readout.readout_definition import ReadoutDefinition
+        from root_container.panel_container.element.widget.checkbox_widget import CheckboxWidgetDefinition
+        from root_container.panel_container.element.widget.dropdown_widget import DropdownWidgetDefinition
+        from root_container.panel_container.element.widget.textbox_widget import CodeTextboxWidgetDefinition, ValueTextboxWidgetDefinition
+
+        class_ = json["class"]
+        if class_ == "ReadoutDefinition":
+            return ReadoutDefinition.importFromJson(json)
+        elif class_ == "CheckboxWidgetDefinition":
+            return CheckboxWidgetDefinition.importFromJson(json)
+        elif class_ == "DropdownWidgetDefinition":
+            return DropdownWidgetDefinition.importFromJson(json)
+        elif class_ == "CodeTextboxWidgetDefinition":
+            return CodeTextboxWidgetDefinition.importFromJson(json)
+        elif class_ == "ValueTextboxWidgetDefinition":
+            return ValueTextboxWidgetDefinition.importFromJson(json)
+        else:
+            raise Exception("Unknown class: " + class_)
+
+    def exportToJson(self) -> dict:
+        return { "class": "<unknown>" }

@@ -80,9 +80,27 @@ class CodeTextboxWidgetDefinition(TextboxWidgetDefinition):
     def __init__(self):
         super().__init__("code", fontID = FontID.FONT_CODE, fontSize = 10, defaultText = "", isDynamic = True, isNumOnly = False)
 
+    def importFromJson(json: dict):
+        return CodeTextboxWidgetDefinition()
+    
+    def exportToJson(self) -> dict:
+        return {
+            "class": "CodeTextboxWidgetDefinition"
+        }
+
 # numbers only, static
 class ValueTextboxWidgetDefinition(TextboxWidgetDefinition):
 
     def __init__(self, name: str, defaultValue: float):
         defaultText = str(round(defaultValue, 3))
         super().__init__(name, fontID = None, fontSize = None, defaultText = defaultText, isDynamic = False, isNumOnly = True)
+
+    def importFromJson(json: dict):
+        return ValueTextboxWidgetDefinition(json["variableName"], json["defaultValue"])
+    
+    def exportToJson(self) -> dict:
+        return {
+            "class": "ValueTextboxWidgetDefinition",
+            "variableName": self.variableName,
+            "defaultValue": float(self.defaultValue)
+        }

@@ -63,3 +63,15 @@ class CheckboxWidgetDefinition(WidgetDefinition):
 
     def makeElement(self, parent, parentCommand, pathAdapter) -> CheckboxWidgetContainer:
         return CheckboxWidgetContainer(parent, parentCommand, self)
+    
+    def importFromJson(json: dict):
+        return CheckboxWidgetDefinition(json["variableName"], json["defaultOn"], json["tooltipOn"], json["tooltipOff"])
+    
+    def exportToJson(self) -> dict:
+        return {
+            "class": "CheckboxWidgetDefinition",
+            "variableName": self.variableName,
+            "defaultOn": self.defaultOn,
+            "tooltipOn": self.tooltipOn,
+            "tooltipOff": self.tooltipOff
+        }

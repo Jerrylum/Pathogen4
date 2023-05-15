@@ -50,3 +50,13 @@ class DropdownWidgetDefinition(WidgetDefinition):
 
     def makeElement(self, parent, parentCommand, pathAdapter) -> DropdownWidgetContainer:
         return DropdownWidgetContainer(parent, parentCommand, self)
+    
+    def importFromJson(json: dict):
+        return DropdownWidgetDefinition(json["variableName"], json["options"])
+    
+    def exportToJson(self) -> dict:
+        return {
+            "class": "DropdownWidgetDefinition",
+            "variableName": self.variableName,
+            "options": self.options
+        }

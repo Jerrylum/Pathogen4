@@ -33,3 +33,30 @@ class CommandDefinition:
             if element.id == id:
                 return element
         return None
+    
+    def importFromJson(json: dict):
+        id = json["id"]
+        type = CommandType[json["type"]]
+        name = json["name"]
+        color = json["color"]
+        elements = [ElementDefinition.importFromJson(elementJson) for elementJson in json["elements"]]
+        templateText = json["templateText"]
+        isCode = json["isCode"]
+        nonblockingEnabled = json["nonblockingEnabled"]
+        isTask = json["isTask"]
+        allowedInTask = json["allowedInTask"]
+        return CommandDefinition(id, type, name, color, elements, templateText, isCode, nonblockingEnabled, isTask, allowedInTask)
+    
+    def exportToJson(self) -> dict:
+        return {
+            "id": self.id,
+            "type": self.type.name,
+            "name": self.name,
+            "color": self.color,
+            "elements": [element.exportToJson() for element in self.elements],
+            "templateText": self.templateText,
+            "isCode": self.isCode,
+            "nonblockingEnabled": self.nonblockingEnabled,
+            "isTask": self.isTask,
+            "allowedInTask": self.allowedInTask
+        }
